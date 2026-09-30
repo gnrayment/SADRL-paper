@@ -1,0 +1,30 @@
+{
+    "seed": 42,
+    "sampling": {
+        "thetas": [0.00011, 0.00013, 0.00015, 0.00017, 0.00019, 0.00021, 0.00023, 0.00025, 0.00027, 0.00029], 
+        "window_size": 4, 
+        "shift": 1,
+        "cols": ["DCC Index", "Start", "DCC", "Direction", "TMV_1", "OSV_1", "OSV_3", "OSV_5", "OSV_10", "R_DC_1", "R_DC_3", "R_DC_5", "R_DC_10", "T_DC_1", "T_DC_3", "T_DC_5", "T_DC_10", "N_DC_1", "N_DC_10", "N_DC_20", "N_DC_30", "N_DC_40", "N_DC_50", "C_DC_1", "C_DC_10", "C_DC_20", "C_DC_30", "C_DC_40", "C_DC_50"]
+    }, 
+    "trad_dict": {
+    },
+    "DC_dict": {
+        "TMV": "TMV",
+        "OSV": "OSV",
+        "R_DC": "R_DC",
+        "T_DC": "T_DC",
+        "N_DC": {"N_DC": [10, 20, 30, 40, 50]},
+        "C_DC": {"C_DC": [10, 20, 30, 40, 50]},
+        "A_T": {"A_T": [10, 20, 30, 40, 50]},
+        "average_OSV": {"average_OSV": [3, 5, 10]},
+        "average_R_DC": {"average_R_DC": [3, 5, 10]},
+        "average_T_DC": {"average_T_DC": [3, 5, 10]}
+    },
+    "training": {
+        "context_length": 1000, 
+        "lag": 5, 
+        "patience": 3, 
+        "min_evals": 10, 
+        "check_freq": 20000
+    }
+}

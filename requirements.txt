@@ -1,0 +1,16 @@
+# Environment used for the paper: Python 3.8.10.
+# Training and evaluation (versions pinned to those used for the reported results)
+stable-baselines3==1.7.0
+sb3-contrib==1.7.0
+torch==1.13.1
+gym==0.21.0          # installing gym 0.21 may need: pip install "setuptools<66" "wheel<0.40"
+TA-Lib               # needs the TA-Lib C library first, e.g. `brew install ta-lib` or `apt install libta-lib-dev`
+numpy
+pandas
+pyarrow
+bokeh                # optional: HTML trade plots (evaluate.py --plot)
+
+# Data preparation and analysis
+numba                # optional: ~100x faster DC sampling
+scipy
+scikit-posthocs

@@ -1,0 +1,10 @@
+{
+    "seed": 42,
+    "sampling": {
+        "cols": ["DCC Index", "Direction", "TMV_1", "OSV_1", "OSV_3", "OSV_5", "OSV_10", "R_DC_1", "R_DC_3", "R_DC_5", "R_DC_10", "T_DC_1", "T_DC_3", "T_DC_5", "T_DC_10", "N_DC_1", "N_DC_10", "N_DC_20", "N_DC_30", "N_DC_40", "N_DC_50", "C_DC_1", "C_DC_10", "C_DC_20", "C_DC_30", "C_DC_40", "C_DC_50"]
+    }, 
+    "training": {
+        "max_timesteps": 3000000, 
+        "eval_frequency": 50000
+    }
+}
