@@ -38,7 +38,8 @@ class MeanReversionStrategy:
             
             self.df.at[self.df.index[i], 'Position'] = position
         
-        self.df['Returns'] = self.df['TradePrice'].pct_change() * self.df['Position'].shift(1)
+        # Forward-fill trade prices explicitly: pandas < 2.1 did this inside pct_change(), pandas 3 does not.
+        self.df['Returns'] = self.df['TradePrice'].ffill().pct_change() * self.df['Position'].shift(1)
         self.df['CumulativeReturns'] = (1 + self.df['Returns']).cumprod()
     
     def get_performance_metrics(self):

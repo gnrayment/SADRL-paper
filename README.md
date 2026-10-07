@@ -91,8 +91,15 @@ This repository is a tidied version of the code that produced the paper's result
 - **Cross-pair evaluation.** The original script was not preserved; `evaluate.py --target` scales the target pair's data with the target pair's own training statistics.
 - **Statistical tests.** Post-hoc p-values use the Conover test for the Friedman design (`posthoc_conover_friedman`) with Holm correction, as reported in the revised paper.
 - **Buy-and-hold** is computed relative to the entry price, as reported in the revised paper.
-- **Known issues kept so that the reported results reproduce:** the MACD-RSI and Bollinger Bands implementations close long positions at the ask instead of the bid (slightly favouring those benchmarks), and the TADRL evaluation standardises the test data with its own statistics (a small look-ahead favouring TADRL). Both are marked in the code.
+- **Benchmark exit prices (fixed in v1.1).** In the original evaluation and in v1.0 of this repository, the MACD-RSI and Bollinger Bands implementations closed long positions at the ask instead of the bid, crediting those benchmarks with the spread on every long exit. v1.1 corrects this, and the revised paper reports the corrected results. The fixed-interval strategies also forward-fill trade prices explicitly, so their results no longer depend on the pandas version.
+- **TADRL standardisation (kept so the reported results reproduce).** The TADRL evaluation standardises the test data with its own statistics, a look-ahead that favours TADRL. It is marked in the code.
+- **Duplicate-timestamp artefact in the original data pipeline.** The original pipeline joined each DC event's start and confirmation prices to the feature data on timestamp, so events sharing a millisecond timestamp were matched with each other's prices (about 10% of rows at thresholds of 0.017% and above; none at 0.015%). The reported results and the released trade logs were produced on that data. The re-implemented pipeline here does not join on timestamp, so it does not reproduce the artefact. See Sections 4.2 and 6.5 of the revised paper.
 - **FDRL and PADRL training** code belongs to the original FDRL and PADRL studies and is not included; only their evaluation code is.
+
+## Changelog
+
+- **v1.1** (October 2026): MACD-RSI and Bollinger Bands close long positions at the bid (previously the ask); explicit forward-fill of trade prices in the fixed-interval strategies; the duplicate-timestamp artefact of the original pipeline is documented. The per-trade logs are unchanged and remain attached to the v1.0 release.
+- **v1.0** (September 2026): code and per-trade logs for the Array revision.
 
 ## Citation
 
