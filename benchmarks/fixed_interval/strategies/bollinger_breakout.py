@@ -31,15 +31,15 @@ class BollingerBreakoutStrategy:
             else:
                 if (position == 1 and self.df.iloc[i]['Mid'] > self.df.iloc[i]['RollingMean']) or \
                    (position == -1 and self.df.iloc[i]['Mid'] < self.df.iloc[i]['RollingMean']):
-                    position = 0  # Exit trade
+                    # Exit: a long position is closed at the bid, a short position at the ask. (v1.0 reset
+                    # `position` to 0 before choosing the price, so every exit filled at the ask.)
                     self.df.at[self.df.index[i], 'TradePrice'] = self.df.iloc[i]['Bid'] if position == 1 else self.df.iloc[i]['Ask']
-                    # KNOWN ISSUE (kept so the reported results reproduce): `position` is reset to 0 on the
-                    # line above, so every exit fills at the ask, including long exits. This slightly favours
-                    # this benchmark; see the Limitations section of the paper.
+                    position = 0  # Exit trade
             
             self.df.at[self.df.index[i], 'Position'] = position
         
-        self.df['Returns'] = self.df['TradePrice'].pct_change().fillna(0) * self.df['Position'].shift(1).fillna(0)
+        # Forward-fill trade prices explicitly: pandas < 2.1 did this inside pct_change(), pandas 3 does not.
+        self.df['Returns'] = self.df['TradePrice'].ffill().pct_change().fillna(0) * self.df['Position'].shift(1).fillna(0)
         self.df['CumulativeReturns'] = (1 + self.df['Returns']).cumprod()
     
     def get_performance_metrics(self):
